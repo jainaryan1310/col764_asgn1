@@ -11,31 +11,63 @@ class posting_list
 {
 private:
   string term_idx;
-  vector<int> list;
+  int *list;
+  long long size = 0;
 
 public:
+  posting_list()
+  {
+    size = 0;
+  }
+
   posting_list(string term, int docid)
   {
     term_idx = term;
-    list.clear();
-    list.push_back(docid);
+    size = 1;
+    int *new_list = new int[size];
+    new_list[0] = docid;
+    list = new_list;
+  }
+
+  long long get_size()
+  {
+    return size;
+  }
+
+  void print_list()
+  {
+    for (long long i = 0; i < size - 1; i++)
+    {
+      cout << list[i] << ", ";
+    }
+    cout << list[size - 1] << endl;
   }
 
   void insert_doc(int docid)
   {
-    list.push_back(docid);
+    if (size >= sizeof(list) / sizeof(list[0]))
+    {
+      int *new_list = new int[size * 2];
+      for (long long i = 0; i < size; i++)
+      {
+        new_list[i] = list[i];
+      }
+      list = new_list;
+    }
+    list[size] = docid - list[size - 1];
+    size++;
   }
 };
 
 class inverted_index
 {
 private:
-  int num_terms;
+  long long num_terms;
   map<int, string> doc_id;
-  map<string, posting_list *> dictionary;
+  map<string, posting_list> dictionary;
 
 public:
-  int num_terms()
+  long long get_num_terms()
   {
     return num_terms;
   }
@@ -72,12 +104,17 @@ public:
     }
   }
 
-  posting_list *get_posting_list(string term)
+  void insert_doc_id(int docid, string docno)
+  {
+    doc_id[docid] = docno;
+  }
+
+  posting_list get_posting_list(string term)
   {
     if (dictionary.find(term) == dictionary.end())
     {
-      posting_list *null_posting_list;
-      return null_posting_list;
+      posting_list npl = posting_list();
+      return npl;
     }
     else
     {
@@ -89,13 +126,14 @@ public:
   {
     if (dictionary.find(term) != dictionary.end())
     {
-      posting_list *p_list = get_posting_list(term);
-      p_list->insert_doc(docid);
+      posting_list p_list = dictionary[term];
+      p_list.insert_doc(docid);
+      dictionary[term] = p_list;
     }
     else
     {
-      posting_list p_list(term, docid);
-      dictionary[term] = &p_list;
+      posting_list p_list = posting_list(term, docid);
+      dictionary[term] = p_list;
       num_terms++;
     }
   }

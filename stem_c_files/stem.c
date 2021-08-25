@@ -693,7 +693,6 @@ static void stemfile(FILE *f)
       s[stem(s, 0, i - 1) + 1] = 0;
       /* the previous line calls the stemmer and uses its result to
             zero-terminate the string in s */
-      printf("aryan");
       printf("%s", s);
     }
     else
