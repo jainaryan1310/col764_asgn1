@@ -4,6 +4,6 @@ all:
 invid:
 	g++ -std=c++17 invidx_cons.cpp -o sol
  
-# run invid:
-# 	g++ -std=c++17 invidx_cons.cpp -o sol
-# 	./sol
+run_invid:
+	g++ -std=c++17 invidx_cons.cpp -o sol
+	./sol
