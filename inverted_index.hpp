@@ -2,7 +2,6 @@
 #define INVERTED_INDEX_HPP_INCLUDED
 
 #include <bits/stdc++.h>
-#include "rapidxml-1.13/rapidxml.hpp"
 #include "posting_list.hpp"
 
 using namespace std;

@@ -2,6 +2,7 @@
 #include "porter_stemmer/porter_stemmer.hpp"
 #include "rapidxml-1.13/rapidxml.hpp"
 #include "inverted_index.hpp"
+#include "posting_list.hpp"
 #include "string_util.hpp"
 
 using namespace std;

@@ -55,6 +55,11 @@ public:
     list[size] = docid - list[size - 1];
     size++;
   }
+
+  int get_docid(long long position)
+  {
+    return list[position];
+  }
 };
 
 #endif

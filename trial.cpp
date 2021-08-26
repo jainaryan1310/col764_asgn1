@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
-#include "porter_stemmer/porter_stemmer.hpp"
-#include "rapidxml-1.13/rapidxml.hpp"
+// #include "porter_stemmer/porter_stemmer.hpp"
+// #include "rapidxml-1.13/rapidxml.hpp"
 #include <ctype.h> /* for isupper, islower, tolower */
+#include "compression_c1.hpp"
+#include "posting_list.hpp"
 
 using namespace std;
-using namespace rapidxml;
+// using namespace rapidxml;
 
 int main()
 {
@@ -41,28 +43,50 @@ int main()
   //   }
   // }
 
-  xml_document<> xml_d;
-  string path = "../tipster-ap-frac";
-  int docid = 0;
-  for (const auto &file : filesystem::directory_iterator(path))
-  {
-    ifstream t(file.path());
-    stringstream buffer;
-    buffer << t.rdbuf();
-    string file_text = buffer.str();
-    xml_d.clear();
-    xml_d.parse<0>(&file_text[0]);
-    string s;
-    string text = "";
-    string docno;
-    string stemmed_text;
-    char *p;
+  // xml_document<> xml_d;
+  // string path = "../tipster-ap-frac";
+  // int docid = 0;
+  // for (const auto &file : filesystem::directory_iterator(path))
+  // {
+  //   ifstream t(file.path());
+  //   stringstream buffer;
+  //   buffer << t.rdbuf();
+  //   string file_text = buffer.str();
+  //   xml_d.clear();
+  //   xml_d.parse<0>(&file_text[0]);
+  //   string s;
+  //   string text = "";
+  //   string docno;
+  //   string stemmed_text;
+  //   char *p;
 
-    while (xml_d.first_node())
-    {
-      cout << docid << endl;
-      docid++;
-      xml_d.remove_first_node();
-    }
-  }
+  //   while (xml_d.first_node())
+  //   {
+  //     cout << docid << endl;
+  //     docid++;
+  //     xml_d.remove_first_node();
+  //   }
+  // }
+
+  // bitset<8> b(127);
+  // b[7] = 1;
+  // cout << b << endl;
+
+  // vector<int> a;
+  // a.push_back(1);
+  // a.push_back(2);
+  // int c;
+  // while (a.size() > 0)
+  // {
+  //   c = a.back();
+  //   a.pop_back();
+  //   cout << c << endl;
+  // }
+
+  // vector<bitset<8>> b = compress(1000);
+  // for (int i = 0; i < b.size(); i++)
+  // {
+  //   cout << b[i] << endl;
+  // }
+  // cout << decompress(b) << endl;
 }
