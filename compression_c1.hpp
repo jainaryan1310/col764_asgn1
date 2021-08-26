@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 #include "posting_list.hpp"
 
-vector<bitset<8>> compress(int docid)
+vector<bitset<8>> c1_compress(int docid)
 {
   vector<bitset<8>> v;
   bitset<8> b(docid % 128);
@@ -29,16 +29,17 @@ vector<bitset<8>> c1_encode(posting_list p)
   vector<bitset<8>> compressed_id;
   for (long long i = 0; i < size; i++)
   {
-    compressed_id = compress(p.get_docid(i));
+    compressed_id = c1_compress(p.get_docid(i));
     while (compressed_id.size() > 0)
     {
       compressed_list.push_back(compressed_id.back());
       compressed_id.pop_back();
     }
   }
+  return compressed_list;
 }
 
-int decompress(vector<bitset<8>> compressed_id)
+int c1_decompress(vector<bitset<8>> compressed_id)
 {
   bitset<8> b = compressed_id[0];
   b[7] = 0;
@@ -59,16 +60,19 @@ vector<int> c1_decode(vector<bitset<8>> compressed_list, long long size)
   vector<bitset<8>> compressed_id;
   bitset<8> b;
   int docid;
+  vector<int> docid_list;
   for (long long i = 0; i < size; i++)
   {
     b = compressed_list[i];
     compressed_id.push_back(b);
     if (b[7] == 0)
     {
-      docid = decompress(compressed_id);
+      docid = c1_decompress(compressed_id);
       compressed_id.clear();
+      docid_list.push_back(docid);
     }
   }
+  return docid_list;
 }
 
 #endif

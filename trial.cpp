@@ -3,6 +3,7 @@
 // #include "rapidxml-1.13/rapidxml.hpp"
 #include <ctype.h> /* for isupper, islower, tolower */
 #include "compression_c1.hpp"
+#include "compression_c2.hpp"
 #include "posting_list.hpp"
 
 using namespace std;
@@ -89,4 +90,13 @@ int main()
   //   cout << b[i] << endl;
   // }
   // cout << decompress(b) << endl;
+
+  int t;
+  cin >> t;
+  vector<bitset<1>> a = c2_compress(t);
+  for (auto it = a.begin(); it != a.end(); it++)
+  {
+    cout << *it;
+  }
+  cout << endl;
 }
